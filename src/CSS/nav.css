@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Moirai+One&display=swap");
+
+:root {
+  --c1: #bb3e03;
+  --c2: #c7e359;
+  --c3: #ee9b00;
+  --c4: #005f73;
+  --c5: #001219;
+  --max-width: 1170px;
+  --fixed-width: 450px;
+}
+
+.navbar {
+  position: sticky;
+  width: 100%;
+  top: 0rem;
+  left: 0rem;
+  z-index: 100;
+}
+.nav-ul {
+  background-color: var(--c1);
+  padding: 5px;
+  margin: 0;
+  text-align: right;
+}
+.nav-ul li {
+  display: inline-block;
+  line-height: 1.5rem;
+  text-decoration: none;
+}
+
+.nav-ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+  line-height: 2.5rem;
+  font-weight: 500;
+  font-size: 1.3rem;
+  font-family: "Chivo Mono", monospace;
+}
+
+.nav-ul li a:hover {
+  color: var(--c5);
+}
+
+ul .logo {
+  /* text-align: left */
+  position: absolute;
+  top: -0.45rem;
+  left: 1rem;
+  display: inline-block;
+  align-items: flex-start;
+  color: white;
+}
+
+.logo li {
+  margin-inline: 0.3rem;
+}
+
+.logo li h1 {
+  font-size: 1.8rem;
+  font-family: "Moirai One", cursive;
+  font-weight: 700;
+}

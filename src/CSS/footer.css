@@ -1,0 +1,87 @@
+.footer {
+  background-color: var(--c1);
+  margin: 0rem 0rem 0rem 0rem;
+  width: 100%;
+  color: white;
+  padding-left: 0rem;
+}
+
+.left {
+  width: 50%;
+  margin: 0%;
+  /* margin: 1rem 0rem 0rem 0vb;
+  padding-top: 2rem; */
+  display: inline-block;
+  /* background-color: green; */
+}
+.left h1 {
+  font-size: 2.3rem;
+  margin: 2rem 0rem 0rem 0rem;
+  /* margin-bottom: 0rem; */
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.left ul {
+  /* display: inline-block; */
+  list-style-type: none;
+}
+
+.left ul li {
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.left ul li a:hover {
+  color: var(--c5);
+}
+
+.right {
+  /* position: relative;
+  top: -15px; */
+  width: 50%;
+  /* margin: 0%; */
+  /* padding-bottom: 1rem; */
+  /* margin: 1rem 0rem 0rem 0vb;
+  padding-top: 2rem; */
+  display: inline-block;
+  /* background-color: green;
+  display: inline-block;
+  padding: 1rem 0 0rem 0;
+  height: 6rem;
+  width: 50%; */
+  /* background-color: blue; */
+}
+
+.right .address li {
+  /* display: inline-block; */
+  /* align-items: flex-start; */
+  /* padding: -2rem; */
+  /* margin: 0rem; */
+}
+.right .address .li p {
+  display: inline-block;
+}
+/* li EmailIcon {
+  color: aquamarine;
+  background-color: brown;
+  padding: 0%;
+} */
+
+.address {
+  list-style-type: none;
+}
+.address li {
+  font-size: medium;
+}
+.address .icon {
+  position: relative;
+  top: 5px;
+  padding: 0 0.5rem 0 0;
+  font-size: 1.5rem;
+}

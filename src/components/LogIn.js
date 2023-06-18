@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import gif from "../usables/eye_cover.gif";
+import "../CSS/form.css";
 
 const LogIn = () => {
   const [person, setPerson] = useState({
@@ -41,33 +43,48 @@ const LogIn = () => {
     setPerson({ ...person, [name]: value });
   };
   return (
-    <>
+    <div className="formPage">
       <article>
+        <div className="gif">
+          <img className="gif_image" src={gif} alt="image" />
+        </div>
         <form className="form" onSubmit={handleSubmit}>
-          <div className="form-control">
-            <label htmlFor="email">Email : </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={person.email}
-              onChange={handleChange}
-            />
+          <div classnmae="form_content">
+            <div className="logo">
+              <h1>CAPWIZARD</h1>
+            </div>
+            <div className="form-control">
+              <label htmlFor="email">Email : </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={person.email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-control">
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={person.password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="button-container">
+              <button type="submit">Login</button>
+            </div>
+            <div className="already">
+              <p>
+                Don't have an account? <a href="/signup">Sign Up</a>
+              </p>
+            </div>
           </div>
-          <div className="form-control">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={person.password}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit">Login</button>
         </form>
       </article>
-    </>
+    </div>
   );
 };
 
