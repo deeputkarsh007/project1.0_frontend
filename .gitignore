@@ -12,6 +12,8 @@
 /build
 
 # misc
+#is everything working okky
+
 .env
 .DS_Store
 .env.local
