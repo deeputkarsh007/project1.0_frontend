@@ -1,71 +1,112 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SmartToyRoundedIcon from "@mui/icons-material/SmartToyRounded";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import "../CSS/nav.css";
 const Nav = () => {
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
   const navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem("user");
+    setIsNavExpanded(false);
     navigate("/signup");
   };
   const auth = localStorage.getItem("user");
   return (
     <>
       {auth ? (
-        <div className="navbar">
-          <ul className="nav-ul">
-            <ul className="logo">
+        <nav className="navigation">
+          <a href="/" className="brand-name">
+            <div className="capwizard">
+              <SmartToyRoundedIcon />
+              CAPWIZARD
+            </div>
+          </a>
+          <button
+            className="hamburger"
+            onClick={() => {
+              setIsNavExpanded(!isNavExpanded);
+            }}
+          >
+            {!isNavExpanded ? <MenuRoundedIcon /> : <MenuOpenRoundedIcon />}
+          </button>
+          <div
+            className={
+              isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
+            }
+          >
+            <ul>
               <li>
-                <SmartToyRoundedIcon />
+                <Link to="/" onClick={() => setIsNavExpanded(false)}>
+                  Saved Captions
+                </Link>
               </li>
               <li>
-                <h1>CAPWIZARD</h1>
+                <Link to="/generate" onClick={() => setIsNavExpanded(false)}>
+                  Generate Caption
+                </Link>
               </li>
-            </ul>
-            <li>
-              <Link to="/">Saved Captions</Link>
-            </li>
-            <li>
-              <Link to="/generate">Generate Caption</Link>
-            </li>
-            <li>
-              <Link to="/generateHashtags">Generate Hashtags</Link>
-            </li>
-            {/* <li>
+              <li>
+                <Link
+                  to="/generateHashtags"
+                  onClick={() => setIsNavExpanded(false)}
+                >
+                  Generate Hashtags
+                </Link>
+              </li>
+              {/* <li>
               <Link to="/update">Update Product</Link>
             </li> */}
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/signup" onClick={logout}>
-                Logout
-              </Link>
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <div className="navbar">
-          <ul className="nav-ul">
-            <ul className="logo">
               <li>
-                <SmartToyRoundedIcon />
-              </li>
-              <li>
-                <h1>CAPWIZARD</h1>
+                <Link to="/signup" onClick={logout}>
+                  Logout
+                </Link>
               </li>
             </ul>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
-            <li>
-              <Link to="/signup">SignUp</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </div>
+          </div>
+        </nav>
+      ) : (
+        <nav className="navigation">
+          <a href="/" className="brand-name">
+            <div className="capwizard">
+              <SmartToyRoundedIcon />
+              CAPWIZARD
+            </div>
+          </a>
+          <button
+            className="hamburger"
+            onClick={() => {
+              setIsNavExpanded(!isNavExpanded);
+            }}
+          >
+            {!isNavExpanded ? <MenuRoundedIcon /> : <MenuOpenRoundedIcon />}
+          </button>
+          <div
+            className={
+              isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
+            }
+          >
+            <ul>
+              <li>
+                <Link to="/home" onClick={() => setIsNavExpanded(false)}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/signup" onClick={() => setIsNavExpanded(false)}>
+                  SignUp
+                </Link>
+              </li>
+              <li>
+                <Link to="/login" onClick={() => setIsNavExpanded(false)}>
+                  Login
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
       )}
     </>
   );

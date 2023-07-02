@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import PageviewIcon from "@mui/icons-material/Pageview";
 import { Link, useNavigate } from "react-router-dom";
+import "../CSS/home.css";
 
 const Home = () => {
   const [captions, setCaptions] = useState([]);
@@ -66,7 +67,7 @@ const Home = () => {
     }
   };
   return (
-    <>
+    <div className="page">
       <input
         type="text"
         placeholder="search product"
@@ -81,10 +82,16 @@ const Home = () => {
               <li style={{ "--i": `${index + 1}` }} key={item._id}>
                 <div className="content">
                   <h3>{item.name}</h3>
-                  <p>{item.platform}</p>
-                  <p>{item.mood}</p>
-                  <p>{item.length}</p>
-                  <p id="myInput">{item.caption}</p>
+                  <div className="post-about">
+                    <p>{item.platform} post</p>
+                    <p>{item.mood} mood</p>
+                    <p>{item.length} length</p>
+                  </div>
+                  <p id="myInput">
+                    <div className="front-quote">❝</div>
+                    <div className="quote-content">"${item.caption}"</div>
+                    <div className="back-quote">❞</div>
+                  </p>
                 </div>
                 <div className="buttonContainer">
                   <Button
@@ -118,7 +125,7 @@ const Home = () => {
       ) : (
         <h1>No result Found</h1>
       )}
-    </>
+    </div>
   );
 };
 

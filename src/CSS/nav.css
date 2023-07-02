@@ -10,41 +10,140 @@
   --fixed-width: 450px;
 }
 
-.navbar {
+nav {
   position: sticky;
   width: 100%;
   top: 0rem;
   left: 0rem;
   z-index: 100;
 }
-.nav-ul {
+.navigation {
+  height: 60px;
+  /* width: 100%; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 0rem;
+  background-color: var(--c1);
+  color: white;
+  box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+}
+
+.brand-name {
+  text-decoration: none;
+  color: black;
+  font-size: 1.3rem;
+  margin-left: 1rem;
+}
+.navigation-menu {
+  margin-left: auto;
+}
+
+.navigation-menu ul {
+  display: flex;
+  padding: 0;
   background-color: var(--c1);
   padding: 5px;
-  margin: 0;
+  /* margin: 0; */
   text-align: right;
 }
-.nav-ul li {
+.navigation-menu li {
+  margin: 0 1rem;
   display: inline-block;
   line-height: 1.5rem;
   text-decoration: none;
 }
-
-.nav-ul li a {
+.navigation-menu li a {
+  text-decoration: none;
+  display: block;
+  width: 100%;
   text-decoration: none;
   color: white;
-  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
   line-height: 2.5rem;
   font-weight: 500;
   font-size: 1.3rem;
   font-family: "Chivo Mono", monospace;
 }
 
+.hamburger {
+  border: 0;
+  height: 50px;
+  width: 50px;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: transparent;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  transform: translateY(-50%);
+  display: none;
+}
+/* .hamburger:hover {
+  background-color: #2642af;
+} */
+
+@media screen and (max-width: 1030px) {
+  nav {
+    width: 100vw;
+  }
+  .hamburger {
+    display: block;
+  }
+  .navigation-menu ul {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 77px);
+    background-color: var(--c1);
+    color: white;
+    border-top: 1px solid wheat;
+  }
+  .navigation-menu li {
+    text-align: center;
+    margin: 0;
+  }
+  .navigation-menu li a {
+    color: white;
+    width: 100%;
+    padding: 1.5rem 0;
+  }
+  .navigation-menu li:hover {
+    background-color: var(--c3);
+  }
+  .navigation-menu ul {
+    display: none;
+  }
+  .navigation-menu.expanded ul {
+    display: flex;
+  }
+}
+/* .navbar {
+
+}
+.nav-ul {
+  
+}
+.nav-ul li {
+  
+}
+
+.nav-ul li a {
+  
+}
+
 .nav-ul li a:hover {
   color: var(--c5);
 }
-
+*/
 ul .logo {
-  /* text-align: left */
+  text-align: left;
   position: absolute;
   top: -0.45rem;
   left: 1rem;
@@ -57,8 +156,9 @@ ul .logo {
   margin-inline: 0.3rem;
 }
 
-.logo li h1 {
-  font-size: 1.8rem;
+.capwizard {
+  color: white;
+  font-size: 1.7rem;
   font-family: "Moirai One", cursive;
   font-weight: 700;
 }

@@ -41,10 +41,12 @@ const AddProduct = () => {
   };
   const openai = new OpenAIApi(
     new Configuration({
+      // apiKey: "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",
       apiKey: process.env.REACT_APP_API_KEY,
     })
   );
   const fetchCaption = async () => {
+    console.log(process.env.REACT_APP_API_KEY + "tjon");
     openai
       .createChatCompletion({
         model: "gpt-3.5-turbo",
@@ -56,8 +58,8 @@ const AddProduct = () => {
         ],
       })
       .then((res) => {
+        console.log("we have reached upto this");
         let ans = res.data.choices[0].message.content;
-        console.log(ans);
         setCaption({ ...caption, caption: ans });
         // console.log(showCaption, "Hello this is working as funcpkk");
       });
@@ -123,6 +125,9 @@ const AddProduct = () => {
         </div>
         <form className="form" onSubmit={handleGenerate}>
           <div className="form_content">
+            <div className="logo">
+              <h1>CAPWIZARD</h1>
+            </div>
             <div className="form-control">
               <label htmlFor="name">Name your Post: </label>
               <input
@@ -234,7 +239,7 @@ const AddProduct = () => {
             {error && !caption.description && (
               <span className="form-error-message">Please Enter catagory</span>
             )}
-            <div style={{ display: "block" }}>
+            <div className="button-container">
               <button type="submit">Generate Caption</button>
             </div>
           </div>
@@ -243,7 +248,7 @@ const AddProduct = () => {
       {caption.caption && (
         <div className="caption-result">
           {`${caption.caption}`}
-          <div className="buttonContainer">
+          <div className="button-container">
             <Button
               className="updatebutton"
               variant="outlined"
