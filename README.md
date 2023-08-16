@@ -1,6 +1,40 @@
-# Getting Started with Create React App
+# CapWizard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Unleash the power of AI to generate captivating text. CapWizard not only empowers you to generate awe-inspiring AI-generated text but also allows you to generate mood based captions for your social media posts.
+
+## Demo
+
+https://capwizard.netlify.app/
+
+
+## 🚀 About Me
+
+I am Utkarsh Deep, a Bachelor of Technology student majoring in Electronics and Communication Engineering at the prestigious Indian Institute of Technology Dhanbad. Alongside my studies, I excel as a full-stack web developer and possess a keen interest in competitive programming.
+
+
+
+
+
+
+
+
+
+## Tech Stack
+
+**Client:** React
+
+**Server:** Node, Express
+
+**Database:** MongoDB 
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/deeputkarsh007/project1.0_frontend
+```
 
 ## Available Scripts
 
@@ -39,32 +73,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Feedback
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you have any feedback, please reach out to me at 21je1009@iitism.ac.in
