@@ -1,4 +1,4 @@
-![1](https://github.com/deeputkarsh007/project1.0_frontend/assets/101280057/61d6dc57-75d4-4639-920f-a29d3b96495e)# CapWizard
+# CapWizard
 
 Unleash the power of AI to generate captivating text. CapWizard not only empowers you to generate awe-inspiring AI-generated text but also allows you to generate mood based captions for your social media posts.
 
