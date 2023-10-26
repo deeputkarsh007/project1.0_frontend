@@ -9,9 +9,11 @@ const Nav = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const navigate = useNavigate();
   const logout = () => {
+    // navigate("/login");
     localStorage.removeItem("user");
+    localStorage.removeItem("auth");
     setIsNavExpanded(false);
-    navigate("/signup");
+    // console.log("home ja na love day");
   };
   const auth = localStorage.getItem("user");
   return (
@@ -60,7 +62,7 @@ const Nav = () => {
               <Link to="/update">Update Product</Link>
             </li> */}
               <li>
-                <Link to="/signup" onClick={logout}>
+                <Link to="/home" onClick={logout}>
                   Logout
                 </Link>
               </li>

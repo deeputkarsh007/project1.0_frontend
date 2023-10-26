@@ -14,9 +14,12 @@ const Update = () => {
   });
 
   const fetchData = async () => {
-    let result = await fetch(`http://localhost:5000/product/${id}`, {
-      method: "get",
-    });
+    let result = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/product/${id}`,
+      {
+        method: "get",
+      }
+    );
     result = await result.json();
     setProduct({
       ...product,
@@ -42,18 +45,21 @@ const Update = () => {
       !product.catagory ||
       !product.company
     ) {
-      console.log("this is working think about something different");
+      // console.log("this is working think about something different");
       setError(true);
       return false;
     } else {
       if (product.name && product.price) {
-        let result = await fetch(`http://localhost:5000/update/${id}`, {
-          method: "put",
-          body: JSON.stringify(product),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        let result = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/update/${id}`,
+          {
+            method: "put",
+            body: JSON.stringify(product),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         result = await result.json();
         // console.log(result);
         navigate("/");

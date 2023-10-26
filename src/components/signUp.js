@@ -18,17 +18,22 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (person.name && person.email && person.password) {
-      let result = await fetch("http://localhost:5000/signup", {
-        method: "post",
-        body: JSON.stringify(person),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      let result = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
+        {
+          method: "post",
+          body: JSON.stringify(person),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       result = await result.json();
-      console.log(result);
-      localStorage.setItem("user", JSON.stringify(result));
-      navigate("/");
+      // console.log(result);
+
+      localStorage.setItem("user", JSON.stringify(result.result));
+      localStorage.setItem("auth", JSON.stringify(result.auth));
+      navigate("/generate");
     } else {
       console.log("Please enter all the values");
     }

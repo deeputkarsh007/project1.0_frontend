@@ -98,7 +98,7 @@
   width: 100%;
 }
 
-.product-container li .deletebutton {
+.product-container .deletebutton {
   color: red;
   border: solid white 1px;
   font-weight: 500;
@@ -187,12 +187,12 @@ textarea {
 }
 .caption-result {
   width: 70%;
-  border: solid black 2px;
+  border: var(--c4) solid 1px;
   border-radius: 10px;
   margin: auto;
   margin-bottom: 5rem;
   padding: 3rem;
-  background-color: rgb(208, 207, 207);
+  background-color: #aaf7c98c;
 }
 .searchTerm {
   display: flex;
@@ -205,4 +205,9 @@ textarea {
   width: 25rem;
   border-radius: 5px;
   border: solid var(--c1) 2px;
+}
+
+.button-container button {
+  min-width: 6.4rem;
+  /* background-color: #c7e359; */
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Configuration, OpenAIApi } from "openai";
 import FileCopyTwoToneIcon from "@mui/icons-material/FileCopyTwoTone";
@@ -6,34 +6,60 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import gif from "../usables/machine.gif";
+import loader from "../usables/my_loader.gif";
 import "../CSS/form.css";
 
 const GenerateHashTags = () => {
   let userIdVal = localStorage.user;
   userIdVal = JSON.parse(userIdVal);
-  const [showCaption, setShowCaption] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
   const [hashtags, setHashtags] = useState({
     quantity: "",
     hashtags: "",
     description: "",
   });
+
+  // for verifying the user
+  useEffect(() => {
+    verify();
+  }, []);
+  const navigate = useNavigate();
+  const verify = async () => {
+    let check = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/user/verify`,
+      {
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem("auth"))}`,
+        },
+      }
+    );
+    check = await check.json();
+    if (check.result === "logout") {
+      localStorage.removeItem("user");
+      localStorage.removeItem("auth");
+      navigate("/home");
+    }
+  };
+
   const [error, setError] = useState(false);
   const handleGenerate = async (e) => {
     e.preventDefault();
-    console.log(hashtags);
+    window.scrollTo(0, 2000);
     if (!hashtags.quantity || !hashtags.description) {
       setError(true);
       return false;
     } else {
+      setShowLoader(true);
       fetchHashtags();
-      console.log(hashtags);
+      // console.log(hashtags);
     }
   };
   const openai = new OpenAIApi(
     new Configuration({
-      apiKey: process.env.REACT_APP_API_KEY,
+      apiKey: process.env.REACT_APP_API_KEYS,
     })
   );
+  // delete openai.baseOptions.headers["User-Agent"];
   const fetchHashtags = async () => {
     openai
       .createChatCompletion({
@@ -41,15 +67,16 @@ const GenerateHashTags = () => {
         messages: [
           {
             role: "user",
-            content: `Give me ${hashtags.quantity} for post regarding ${hashtags.description},please do not number it `,
+            content: `Give me ${hashtags.quantity} for post regarding ${hashtags.description},please do not number the hashtags`,
           },
         ],
       })
       .then((res) => {
+        setShowLoader(false);
         let ans = res.data.choices[0].message.content;
-        console.log(ans);
+        // console.log(ans);
         setHashtags({ ...hashtags, hashtags: ans });
-        // console.log(showCaption, "Hello this is working as funcpkk");
+        // console.log(showLoader, "Hello this is working as funcpkk");
       });
   };
   const changeHandler = (e) => {
@@ -117,28 +144,34 @@ const GenerateHashTags = () => {
           </div>
         </form>
       </article>
-      {hashtags.hashtags && (
-        <div className="caption-result">
-          {`${hashtags.hashtags}`}
-          <div className="buttonContainer">
-            <Button
-              className="updatebutton"
-              variant="outlined"
-              onClick={() => navigator.clipboard.writeText(hashtags.hashtags)}
-              startIcon={<FileCopyTwoToneIcon />}
-            >
-              Copy
-            </Button>
-            <Button
-              className="deletebutton"
-              variant="outlined"
-              onClick={() => removeHashtags()}
-              startIcon={<DeleteIcon />}
-            >
-              Discard
-            </Button>
-          </div>
+      {showLoader ? (
+        <div className="loader-container">
+          <img src={loader} alt="Loading...." />
         </div>
+      ) : (
+        hashtags.hashtags && (
+          <div className="caption-result">
+            {`${hashtags.hashtags}`}
+            <div className="button-container">
+              <Button
+                className="copy-button"
+                variant="outlined"
+                onClick={() => navigator.clipboard.writeText(hashtags.hashtags)}
+                startIcon={<FileCopyTwoToneIcon />}
+              >
+                Copy
+              </Button>
+              <Button
+                className="delete-button"
+                variant="outlined"
+                onClick={() => removeHashtags()}
+                startIcon={<DeleteIcon />}
+              >
+                Discard
+              </Button>
+            </div>
+          </div>
+        )
       )}
     </div>
   );

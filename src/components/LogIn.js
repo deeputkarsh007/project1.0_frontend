@@ -18,19 +18,24 @@ const LogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (person.email && person.password) {
-      let result = await fetch("http://localhost:5000/login", {
-        method: "post",
-        body: JSON.stringify(person),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      let result = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
+        {
+          method: "post",
+          body: JSON.stringify(person),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       result = await result.json();
+      // console.log(result, "this is results");
       if (!result.result) {
-        localStorage.setItem("user", JSON.stringify(result));
+        localStorage.setItem("user", JSON.stringify(result.data));
+        localStorage.setItem("auth", JSON.stringify(result.auth));
         navigate("/");
       } else {
-        console.log(result.result);
+        // console.log(result.result);
         navigate("/login");
       }
     } else {

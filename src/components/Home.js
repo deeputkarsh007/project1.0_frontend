@@ -2,41 +2,70 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import FileCopyTwoToneIcon from "@mui/icons-material/FileCopyTwoTone";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
-import PageviewIcon from "@mui/icons-material/Pageview";
 import { Link, useNavigate } from "react-router-dom";
 import "../CSS/home.css";
 
 const Home = () => {
   const [captions, setCaptions] = useState([]);
-  const Navigate = useNavigate();
-  const [querry, setQuerry] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
+    // verify();
     getcaption();
   }, []);
 
+  const verify = async () => {
+    let check = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/user/verify`,
+      {
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem("auth"))}`,
+        },
+      }
+    );
+    check = await check.json();
+    if (check.result === "logout") {
+      localStorage.removeItem("user");
+      localStorage.removeItem("auth");
+      navigate("/login");
+    }
+  };
+
   const getcaption = async () => {
-    let result = await fetch("http://localhost:5000/getcaptions");
+    let result = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/user/getcaptions`,
+      {
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem("auth"))}`,
+        },
+      }
+    );
     result = await result.json();
+    // console.log(result);
     let activeUserId = localStorage.getItem("user");
     activeUserId = JSON.parse(activeUserId);
     activeUserId = activeUserId.email;
-    result = result.filter((product) => {
-      if (product.userId === activeUserId) {
-        return product;
-      }
-    });
-    setCaptions(result);
+    if (result) {
+      result = result.filter((product) => {
+        if (product.userId === activeUserId) {
+          return product;
+        }
+      });
+      setCaptions(result);
+    }
   };
 
   const deleteproduct = async (id) => {
-    await fetch(`http://localhost:5000/deletecaption/${id}`, {
-      method: "delete",
-    });
+    // console.log(id);
+    await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/user/deletecaption/${id}`,
+      {
+        method: "delete",
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem("auth"))}`,
+        },
+      }
+    );
     getcaption();
-  };
-  const updateProduct = (id) => {
-    Navigate(`/product/${id}`);
   };
 
   function myFunction(caption) {
@@ -46,7 +75,14 @@ const Home = () => {
   const searchHandler = async (e) => {
     let key = e.target.value;
     if (key) {
-      let result = await fetch(`http://localhost:5000/search/${key}`);
+      let result = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/user/search/${key}`,
+        {
+          headers: {
+            authorization: `bearer ${JSON.parse(localStorage.getItem("auth"))}`,
+          },
+        }
+      );
       result = await result.json();
       let activeUserId = localStorage.getItem("user");
       activeUserId = JSON.parse(activeUserId);
@@ -58,7 +94,6 @@ const Home = () => {
       });
       if (result) {
         setCaptions(result);
-        // console.log(captions);
       } else {
         console.log("no value found");
       }
@@ -87,13 +122,13 @@ const Home = () => {
                     <p>{item.mood} mood</p>
                     <p>{item.length} length</p>
                   </div>
-                  <p id="myInput">
-                    <div className="front-quote">❝</div>
-                    <div className="quote-content">"${item.caption}"</div>
-                    <div className="back-quote">❞</div>
-                  </p>
+                  <div className="front-quote">❝</div>
+                  <div className="quote-content">
+                    <p id="myInput">{item.caption}</p>
+                  </div>
+                  <div className="back-quote">❞</div>
                 </div>
-                <div className="buttonContainer">
+                <div className="button-container">
                   <Button
                     className="updatebutton"
                     variant="outlined"

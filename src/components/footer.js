@@ -15,22 +15,28 @@ const Footer = () => {
         <h1>Contact Us</h1>
         <ul>
           <li>
-            <a href="https://google.com" target="_blank">
+            <a
+              href="https://www.facebook.com/profile.php?id=100008111268134"
+              target="_blank"
+            >
               <FacebookIcon />
             </a>
           </li>
           <li>
-            <a href="https://google.com" target="_blank">
+            <a href="https://www.instagram.com/deeputkarsh007/" target="_blank">
               <InstagramIcon />
             </a>
           </li>
           <li>
-            <a href="https://google.com" target="_blank">
+            <a href="https://twitter.com/deeputkarsh007" target="_blank">
               <TwitterIcon />
             </a>
           </li>
           <li>
-            <a href="https://google.com" target="_blank">
+            <a
+              href="https://www.linkedin.com/in/utkarsh-deep-209472228/"
+              target="_blank"
+            >
               <LinkedInIcon />
             </a>
           </li>

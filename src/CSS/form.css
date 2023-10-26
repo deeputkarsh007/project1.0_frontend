@@ -59,8 +59,11 @@ article .logo h1 {
   align-items: center;
   padding-bottom: 1rem;
 }
-.form-control input {
+.form-control input,
+.form-control select {
   margin: 1rem;
+  height: 2rem;
+  font-size: 1.1rem;
   padding-inline: 1rem;
   border-radius: 4px;
   height: 1.5rem;
@@ -85,6 +88,7 @@ article .logo h1 {
   min-width: fit-content;
 }
 
+/* .form-control input,
 .form-control select {
   background-color: #e3825987;
   height: 2rem;
@@ -93,7 +97,7 @@ article .logo h1 {
   font-size: 1rem;
   font-weight: 500;
   border: solid transparent 1px;
-}
+} */
 
 /* .form-control select:focus {
   border: solid var(--c1) 1px;
@@ -148,6 +152,8 @@ article .form .form-error-message {
 
 .form-control textarea {
   padding-inline: 1rem;
+  /* line-height: 1.5rem; */
+  font-size: 1.2rem;
   display: block;
   border-radius: 4px;
   height: 10rem;
@@ -168,6 +174,58 @@ article .form .form-error-message {
   margin: 1rem;
 }
 
+.loader-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.loader-container img {
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.button-container .copy-button {
+  color: blue;
+  border: 1px solid blue;
+}
+.button-container .copy-button:hover {
+  border: 1px solid blue;
+  background-color: rgba(0, 0, 255, 0.304);
+  /* box-shadow: 0 0 100pxpx rgba(0, 0, 255, 0.877); */
+  box-shadow: 0 0 25px rgba(0, 0, 255, 0.277);
+}
+
+.button-container .delete-button {
+  border: red 1px solid;
+  color: red;
+}
+.button-container .delete-button:hover {
+  border: solid red 1px;
+  background-color: rgba(255, 0, 0, 0.309);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.277);
+}
+.button-container .save-button {
+  border: rgb(0, 180, 0) 1px solid;
+  color: rgb(0, 180, 0);
+}
+.button-container .save-button:hover {
+  border: solid rgb(0, 180, 0) 1px;
+  background-color: rgba(0, 180, 0, 0.309);
+  box-shadow: 0 0 25px rgba(0, 180, 0, 0.277);
+}
+
+#platform,
+#mood {
+  height: 2rem;
+}
+.radio label {
+  font-size: 1.4rem;
+  padding-left: 1rem;
+  accent-color: var(--c1);
+}
+input[type="radio"] {
+  transform: scale(1.2);
+}
 @media screen and (max-width: 1030px) {
   article {
     display: block;
@@ -318,5 +376,8 @@ article .form .form-error-message {
   .button-container button {
     /* margin: 1rem 1rem 0 1rem; */
     margin: 1rem;
+  }
+  .radio label {
+    font-size: 1.2rem;
   }
 }

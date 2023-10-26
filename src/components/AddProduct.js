@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Configuration, OpenAIApi } from "openai";
 import FileCopyTwoToneIcon from "@mui/icons-material/FileCopyTwoTone";
@@ -6,11 +6,13 @@ import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import gif from "../usables/machine.gif";
+import loader from "../usables/my_loader.gif";
 
 const AddProduct = () => {
   let userIdVal = localStorage.user;
   userIdVal = JSON.parse(userIdVal);
-  const [showCaption, setShowCaption] = useState("");
+
+  const [showLoader, setShowLoader] = useState(false);
   const [caption, setCaption] = useState({
     name: "",
     platform: "",
@@ -21,10 +23,35 @@ const AddProduct = () => {
     userId: userIdVal.email,
   });
   const [error, setError] = useState(false);
+
   const navigate = useNavigate();
+
+  // for verifying the user
+  useEffect(() => {
+    verify();
+  }, []);
+
+  const verify = async () => {
+    let check = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/user/verify`,
+      {
+        headers: {
+          authorization: `bearer ${JSON.parse(localStorage.getItem("auth"))}`,
+        },
+      }
+    );
+    check = await check.json();
+    if (check.result === "logout") {
+      localStorage.removeItem("user");
+      localStorage.removeItem("auth");
+      navigate("/home");
+    }
+  };
+
+  // Function for dealing with onSubmit
   const handleGenerate = async (e) => {
     e.preventDefault();
-    console.log(caption);
+    window.scrollTo(0, 2000);
     if (
       !caption.name ||
       !caption.platform ||
@@ -35,18 +62,19 @@ const AddProduct = () => {
       setError(true);
       return false;
     } else {
+      setShowLoader(true);
       fetchCaption();
-      console.log(caption);
+      // console.log(caption);
     }
   };
+
+  // for openai API
   const openai = new OpenAIApi(
     new Configuration({
-      // apiKey: "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",
-      apiKey: process.env.REACT_APP_API_KEY,
+      apiKey: process.env.REACT_APP_API_KEYS,
     })
   );
   const fetchCaption = async () => {
-    console.log(process.env.REACT_APP_API_KEY + "tjon");
     openai
       .createChatCompletion({
         model: "gpt-3.5-turbo",
@@ -58,33 +86,38 @@ const AddProduct = () => {
         ],
       })
       .then((res) => {
-        console.log("we have reached upto this");
+        setShowLoader(false);
         let ans = res.data.choices[0].message.content;
         setCaption({ ...caption, caption: ans });
-        // console.log(showCaption, "Hello this is working as funcpkk");
       });
   };
+
+  // for saving caption to DB
   const saveCaption = async (e) => {
     e.preventDefault();
-
-    console.log(caption, "this is fucking working");
-    // if (product.name && product.price) {
-    let result = await fetch("http://localhost:5000/addproduct", {
-      method: "post",
-      body: JSON.stringify(caption),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let result = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/user/addproduct`,
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${JSON.parse(localStorage.getItem("auth"))}`,
+        },
+        body: JSON.stringify(caption),
+      }
+    );
     result = await result.json();
-    console.log(result);
+    // console.log(result);
     navigate("/");
   };
+
+  // handling change
   const changeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setCaption({ ...caption, [name]: value });
   };
+
   const options = [
     "Normal",
     "Happy",
@@ -108,6 +141,8 @@ const AddProduct = () => {
     "Tumblr",
     "Reddit",
   ];
+
+  // reset the state
   const removeCaption = () => {
     setCaption({
       platform: "",
@@ -117,6 +152,7 @@ const AddProduct = () => {
       description: "",
     });
   };
+
   return (
     <div className="formPage">
       <article>
@@ -181,7 +217,7 @@ const AddProduct = () => {
                 Please Enter Mood of the caption
               </span>
             )}
-            <div className="form-contro">
+            <div>
               <label htmlFor="catagory">Length:</label>
               <div className="radio">
                 <label>
@@ -245,36 +281,42 @@ const AddProduct = () => {
           </div>
         </form>
       </article>
-      {caption.caption && (
-        <div className="caption-result">
-          {`${caption.caption}`}
-          <div className="button-container">
-            <Button
-              className="updatebutton"
-              variant="outlined"
-              onClick={saveCaption}
-              startIcon={<FileUploadIcon />}
-            >
-              Save
-            </Button>
-            <Button
-              className="updatebutton"
-              variant="outlined"
-              onClick={() => navigator.clipboard.writeText(caption.caption)}
-              startIcon={<FileCopyTwoToneIcon />}
-            >
-              Copy
-            </Button>
-            <Button
-              className="deletebutton"
-              variant="outlined"
-              onClick={() => removeCaption()}
-              startIcon={<DeleteIcon />}
-            >
-              Discard
-            </Button>
-          </div>
+      {showLoader ? (
+        <div className="loader-container">
+          <img src={loader} alt="Loading...." />
         </div>
+      ) : (
+        caption.caption && (
+          <div className="caption-result">
+            {`${caption.caption}`}
+            <div className="button-container">
+              <Button
+                className="save-button"
+                variant="outlined"
+                onClick={saveCaption}
+                startIcon={<FileUploadIcon />}
+              >
+                Save
+              </Button>
+              <Button
+                className="copy-button"
+                variant="outlined"
+                onClick={() => navigator.clipboard.writeText(caption.caption)}
+                startIcon={<FileCopyTwoToneIcon />}
+              >
+                Copy
+              </Button>
+              <Button
+                className="delete-button"
+                variant="outlined"
+                onClick={() => removeCaption()}
+                startIcon={<DeleteIcon />}
+              >
+                Discard
+              </Button>
+            </div>
+          </div>
+        )
       )}
     </div>
   );

@@ -124,24 +124,6 @@ nav {
     display: flex;
   }
 }
-/* .navbar {
-
-}
-.nav-ul {
-  
-}
-.nav-ul li {
-  
-}
-
-.nav-ul li a {
-  
-}
-
-.nav-ul li a:hover {
-  color: var(--c5);
-}
-*/
 ul .logo {
   text-align: left;
   position: absolute;
