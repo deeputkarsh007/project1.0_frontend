@@ -75,6 +75,7 @@ const AddProduct = () => {
     })
   );
   const fetchCaption = async () => {
+    console.log("called");
     openai
       .createChatCompletion({
         model: "gpt-3.5-turbo",
@@ -86,10 +87,12 @@ const AddProduct = () => {
         ],
       })
       .then((res) => {
+        console.log(res);
         setShowLoader(false);
         let ans = res.data.choices[0].message.content;
         setCaption({ ...caption, caption: ans });
       });
+    console.log("done");
   };
 
   // for saving caption to DB
